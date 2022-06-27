@@ -9,7 +9,7 @@ const recipeNumb = 100
 router.get("/", async function (req, res, next) {
   try {
     const diet = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${81d9b464c37a4c55852a8412f0fcc41a}&number=${recipeNumb}&addRecipeInformation=true`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=81d9b464c37a4c55852a8412f0fcc41a&number=${recipeNumb}&addRecipeInformation=true`
     );
     const onlyDiets = await diet.data.results.map((d) => d.diets).flat();
     try {
