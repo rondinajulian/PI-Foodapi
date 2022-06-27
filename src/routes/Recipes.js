@@ -15,7 +15,7 @@ router.get('/', async (req,res) =>{
   var recipes =[]
 
 try {
- const respuesta = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${81d9b464c37a4c55852a8412f0fcc41a}&number=${recipeNumb}&addRecipeInformation=true`)
+ const respuesta = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=81d9b464c37a4c55852a8412f0fcc41a&number=${recipeNumb}&addRecipeInformation=true`)
   const recipe = respuesta.data.results;
   if(respuesta){
      recipes = recipe.map(r=>({
