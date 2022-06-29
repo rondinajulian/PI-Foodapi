@@ -27,6 +27,6 @@ var port = process.env.PORT || 5432;
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(port, () => {
-    console.log('%s listening at 3002'); // eslint-disable-line no-console
+    console.log(port); // eslint-disable-line no-console
   });
 });

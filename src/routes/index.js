@@ -14,10 +14,6 @@ router.use('/recipe', Postrecipe);
 router.use('/recipes', getRecipes);
 router.use('/Types', Types);
 
-router.get('/', async function(req, res, next){
-
-    res.send('Entroo');
-  })
 
 
 module.exports = router;
