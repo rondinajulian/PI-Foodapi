@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
 
-sequelize = new Sequelize("postgres://dlvwywowwkdaxx:5a5d1287e56b197ca2ea51600869e3bf32e1756ad908c7448d1a4743556ea888@ec2-18-204-142-254.compute-1.amazonaws.com:5432/dcbqvqp52agbur", {
+let sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialectOptions: {
     ssl: {
       require: true,
@@ -12,7 +12,6 @@ sequelize = new Sequelize("postgres://dlvwywowwkdaxx:5a5d1287e56b197ca2ea5160086
   }
 }
 );
-
 sequelize
 .authenticate()
 .then(() => {
