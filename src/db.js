@@ -4,26 +4,13 @@ const fs = require('fs');
 const path = require('path');
 const { DB_USER ,DB_PASSWORD ,DB_HOST,DB_NAME,DB_DIALECT } = process.env;
 
-let sequelize;
-if(process.env.NODE_ENV !== 'production'){
-  sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-    port:process.env.PORT,
-    host: DB_HOST,
-    dialect: DB_DIALECT,
+let 
+  sequelize = new Sequelize('dcbqvqp52agbur', 'dlvwywowwkdaxx', '5a5d1287e56b197ca2ea51600869e3bf32e1756ad908c7448d1a4743556ea888', {
+    port:"5432",
+    host: 'ec2-18-204-142-254.compute-1.amazonaws.com',
+    dialect: 'postgres',
   });
-}else{
-  sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
-    port:process.env.PORT,
-    host: DB_HOST,
-    dialect: DB_DIALECT,
-    dialectOptions: {
-      ssl: {
-        require: true, // This will help you. But you will see nw error
-        rejectUnauthorized: false // This line will fix new error
-      }
-    },
-  });
-}
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
