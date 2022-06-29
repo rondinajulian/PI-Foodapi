@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app",
+    "start": "nodemon -L",
     "test": "mocha -w ./tests/**/*.spec.js"
   },
   "author": "JulianRondina",
@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -22,17 +23,16 @@
     "ioredis": "^4.19.2",
     "is-uuid": "^1.0.2",
     "jsonwebtoken": "^8.5.1",
+    "mocha": "^8.2.1",
     "morgan": "^1.10.0",
+    "node": "^18.4.0",
     "node-fetch": "^3.2.3",
+    "nodemon": "^2.0.18",
     "pg": "^8.5.1",
     "sequelize": "^6.3.5",
-    "chai": "^4.2.0",
-    "mocha": "^8.2.1",
-    "nodemon": "^2.0.15",
     "supertest": "^6.0.1",
     "supertest-session": "^4.1.0"
   },
-
   "directories": {
     "test": "tests"
   },

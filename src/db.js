@@ -2,14 +2,34 @@ require('dotenv').config();
 const { Sequelize } = require('sequelize');
 const fs = require('fs');
 const path = require('path');
-const { DB_USER ,DB_PASSWORD ,DB_HOST,DB_NAME,DB_DIALECT } = process.env;
 
-let 
-  sequelize = new Sequelize('dcbqvqp52agbur', 'dlvwywowwkdaxx', '5a5d1287e56b197ca2ea51600869e3bf32e1756ad908c7448d1a4743556ea888', {
-    port:"5432",
-    host: 'ec2-18-204-142-254.compute-1.amazonaws.com',
-    dialect: 'postgres',
-  });
+sequelize = new Sequelize("postgres://dlvwywowwkdaxx:5a5d1287e56b197ca2ea51600869e3bf32e1756ad908c7448d1a4743556ea888@ec2-18-204-142-254.compute-1.amazonaws.com:5432/dcbqvqp52agbur", {
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false
+    }
+  }
+}
+);
+
+sequelize
+.authenticate()
+.then(() => {
+  console.log('Connection has been established successfully.');
+})
+.catch(err => {
+  console.error('Unable to connect to the database:', err);
+});
+
+// const { DB_USER ,DB_PASSWORD ,DB_HOST,DB_NAME,DB_DIALECT } = process.env;
+
+
+// let sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+//     port:process.env.PORT,
+//     host: DB_HOST,
+//     dialect: DB_DIALECT,
+//   });
 
 const basename = path.basename(__filename);
 
