@@ -9,68 +9,68 @@ const recipeNumb = 100
 
 
 // -------- primera peticion que devuelve las recetas --------------
-router.get('/', async (req,res) =>{
+// router.get('/', async (req,res) =>{
 
-  const title = req.query.name
-  var recipes =[]
+//   const title = req.query.name
+//   var recipes =[]
 
-try {
- const respuesta = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=81d9b464c37a4c55852a8412f0fcc41a&number=${recipeNumb}&addRecipeInformation=true`)
-  const recipe = respuesta.data.results;
-  if(respuesta){
-     recipes = recipe.map(r=>({
-      id:r.id,
-      title:r.title,
-      summary:r.summary,
-      score: r.spoonacularScore,
-      healthyness:r.healthScore,
-      image:r.image,
-      diets:r.diets,
-      steps:(r.analyzedInstructions && r.analyzedInstructions.steps?r.analyzedInstructions.steps.map(item=>item.step).join("|"):'')
-      }))
-    }
-    else res.status(404).send('No se encontraron datos')
+// try {
+//  const respuesta = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=81d9b464c37a4c55852a8412f0fcc41a&number=${recipeNumb}&addRecipeInformation=true`)
+//   const recipe = respuesta.data.results;
+//   if(respuesta){
+//      recipes = recipe.map(r=>({
+//       id:r.id,
+//       title:r.title,
+//       summary:r.summary,
+//       score: r.spoonacularScore,
+//       healthyness:r.healthScore,
+//       image:r.image,
+//       diets:r.diets,
+//       steps:(r.analyzedInstructions && r.analyzedInstructions.steps?r.analyzedInstructions.steps.map(item=>item.step).join("|"):'')
+//       }))
+//     }
+//     else res.status(404).send('No se encontraron datos')
 
-    // ----filtro dentro de la api----
-    if(title) recipes = recipes.filter(r=> r.title.includes(title))  
+//     // ----filtro dentro de la api----
+//     if(title) recipes = recipes.filter(r=> r.title.includes(title))  
      
        
-    filterTitle(res,recipes,title)
+//     filterTitle(res,recipes,title)
   
-} catch (error) {
+// } catch (error) {
 
-  res.json('No se encontraron recetas')
+//   res.json('No se encontraron recetas')
   
-}
+// }
    
-})
+// })
 
 
 
-// ------ funciones de filtrado en db ------ 
-function filterTitle(res, recipes, title) {
-  var filter = {};
-  if (title) filter = { title: { [Op.like]: `%${title}%` } };
-  Recipe.findAll({
-    where: filter,
-    include: {
-      model: Diet,
-      as: "diets",
-      through: { attributes: [] },
-      attributes: ["name"],
-      exclude: ["recipe_diet"],
-    },
-  })
-    .then((recipesbd) => {
-      recipesbd = recipesbd.map((recipe) => recipe.get({ plain: true }));
-      recipesbd.forEach(
-        (recipe) => (recipe.diets = recipe.diets.map((diet) => diet.name))
-      );
+// // ------ funciones de filtrado en db ------ 
+// function filterTitle(res, recipes, title) {
+//   var filter = {};
+//   if (title) filter = { title: { [Op.like]: `%${title}%` } };
+//   Recipe.findAll({
+//     where: filter,
+//     include: {
+//       model: Diet,
+//       as: "diets",
+//       through: { attributes: [] },
+//       attributes: ["name"],
+//       exclude: ["recipe_diet"],
+//     },
+//   })
+//     .then((recipesbd) => {
+//       recipesbd = recipesbd.map((recipe) => recipe.get({ plain: true }));
+//       recipesbd.forEach(
+//         (recipe) => (recipe.diets = recipe.diets.map((diet) => diet.name))
+//       );
 
-      recipes = recipes.concat(recipesbd);
-    })
-    .finally(() => res.json(recipes));
-}
+//       recipes = recipes.concat(recipesbd);
+//     })
+//     .finally(() => res.json(recipes));
+// }
 
 
 
@@ -126,30 +126,7 @@ router.get('/:id', async (req,res)=>{
 })
 
 
-// router.get('/name/:name', async(req,res)=>{
-//   const {name} = req.params;
-//   const respuesta = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&number=${recipeNumb}&addRecipeInformation=true`);
-//   const recipe = respuesta.data.results;
-//   try {
-//     if(respuesta){
-//       recipes = recipe.map(r=>({
-//         name:r.title
-//       }))
-//     }
-//       const recipeName =
-//       recipes.filter((r)=>{
-//         const filtername = r.name
-//         if(filtername.includes(name)) return filtername
-//       })
 
-    
-//       recipeName? res.json(recipeName) : res.send("No se encontro")
-    
-    
-//   } catch (error) {
-//     res.sendStatus(404).send(error)
-//   }
-// })
 
 
 router.get('/name/name', async(req,res)=>{
