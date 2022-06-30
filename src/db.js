@@ -4,6 +4,8 @@ const fs = require('fs');
 const path = require('path');
 
 let sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  protocol: 'postgres',
   dialectOptions: {
     ssl: {
       require: true,
